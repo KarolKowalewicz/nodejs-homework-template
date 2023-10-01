@@ -94,7 +94,7 @@ const login = async (req, res, next) => {
       return res.status(401).json({ message: "Wrong password" });
     }
 
-    const secret = process.env.SECRET_KEY;
+    const secret = process.env.SECRET;
     const payload = {
       id: user._id,
       email: user.email,
