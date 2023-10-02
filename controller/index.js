@@ -1,14 +1,5 @@
 const service = require("../service");
 
-// const get = async (req, res, next) => {
-//   try {
-//     const contactsList = await service.getAllContacts();
-//     res.status(200).json({ message: "Success", data: contactsList });
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
-
 const getContacts = async (req, res, next) => {
   try {
        if (!req.user) {
@@ -62,9 +53,9 @@ const create = async (req, res, next) => {
     const newContact = await service.createContact(body);
     res
       .status(201)
-      .json({ message: "Contact added", data: { contact: newContact } });
+      .json({ message: "Contact added", data: { contact: newContact }  });
   } catch (error) {
-    console.error(error);
+         console.error(error);
   }
 };
 
@@ -112,7 +103,6 @@ const favorite = async (req, res, next) => {
 };
 
 module.exports = {
-  // get,
   getContacts,
   getById,
   remove,
