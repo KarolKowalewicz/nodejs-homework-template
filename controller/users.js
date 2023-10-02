@@ -82,16 +82,16 @@ const login = async (req, res, next) => {
     const { error } = loginSchema.validate({ email, password });
 
     if (error) {
-      return res.status(400).json({ message: "Validation error" });
+      return res.status(400).json({ message: "Validation error", error });
     }
     const user = await findUserByEmail(email);
     if (!user) {
-      return res.status(401).json({ message: "Wrong email" });
+      return res.status(401).json({ message: "Wrong email", error });
     }
 
     const authMatch = bcrypt.compare(password, user.password);
     if (!authMatch) {
-      return res.status(401).json({ message: "Wrong password" });
+      return res.status(401).json({ message: "Wrong password", error });
     }
 
     const secret = process.env.SECRET;
@@ -103,13 +103,7 @@ const login = async (req, res, next) => {
 
     const token = jwt.sign(payload, secret, { expiresIn: "1h" });
     res.status(200).json({ message: "Logowanie udane", token });
-    return res.status(200).json({
-      token,
-      user: {
-        email: user.email,
-        subscription: user.subscription,
-      },
-    });
+    
   } catch (error) {
     console.error("Login error:", error);
     return res.status(500).json({ message: "Internal server error" });
