@@ -1,14 +1,5 @@
 const service = require("../service");
 
-const get = async (req, res, next) => {
-  try {
-    const contactsList = await service.getAllContacts();
-    res.status(200).json({ message: "Success", data: contactsList });
-  } catch (error) {
-    console.error(error);
-  }
-};
-
 const getContacts = async (req, res, next) => {
   try {
        if (!req.user) {

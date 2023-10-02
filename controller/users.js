@@ -44,7 +44,7 @@ const signup = async (req, res, next) => {
     const { error } = signupSchema.validate({ email, password });
 
     if (error) {
-      return res.status(400).json({ message: "Validation error" });
+      return res.status(400).json({ message: "Validation error,", error });
     }
 
     const existingUser = await findUserByEmail(email);
